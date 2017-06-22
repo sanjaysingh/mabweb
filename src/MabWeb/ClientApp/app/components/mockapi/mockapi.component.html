@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Search MAB collection</h2>
+        <div class="panel-body">
+            <form class="form-group" role="search" #searchForm="ngForm" (submit)="getCollection(searchForm)">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <input placeholder="search..." class="form-control" type="text" name="text" required ngModel>
+                    </div>
+                    <div class="col-xs-2">
+                        <button type="submit" class="form-control btn btn-success btn-sm"><span class="pull-left glyphicon glyphicon-search"></span> Search</button>
+                    </div>
+                    <div class="col-xs-2">
+                        <button type="button" (click)="addNewCollection(searchForm)" class="form-control btn btn-primary btn-sm">Create</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<app-ui-loader [visible]="isFetching"></app-ui-loader>

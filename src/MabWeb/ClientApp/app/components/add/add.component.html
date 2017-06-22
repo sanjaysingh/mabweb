@@ -1,0 +1,47 @@
+﻿<div>
+    <h2>{{errorMessage}}</h2><app-ui-loader [visible]="isFetching"></app-ui-loader>
+    <form [formGroup]="form">
+        <div class="form-group">
+            <label for="name">Collection Name</label>
+            <input type="text" class="form-control" formControlName="name" aria-describedby="nameHelp" placeholder="enter unique collection name" required >
+            <small id="nameHelp" class="form-text text-muted">it should be unique.</small>
+        </div>
+        <div formGroupName="api">
+            <div class="form-group">
+                <label for="name">Function Name</label>
+                <input type="text" class="form-control" formControlName="name" aria-describedby="nameHelp" placeholder="enter Name" required>
+                <small id="nameHelp" class="form-text text-muted">function name which you call.</small>
+            </div>
+            <div class="form-group">
+                <label for="routeTemplate">Route Template</label>
+                <input type="text" class="form-control" formControlName="routeTemplate" aria-describedby="rtHelp" placeholder="enter Route Template" required>
+                <small id="rtHelp" class="form-text text-muted">route used to call your function.</small>
+            </div>
+            <div class="form-group">
+                <label for="httpVerb">HTTP Verb</label>
+                <select class="form-control" formControlName="verb" required>
+                    <option *ngFor="let verb of httpVerbs" [value]="verb">{{verb}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="txtBody">Function Body</label>
+                <ace-editor required formControlName="body" [text]="body"
+                            [mode]="'javascript'"
+                            [theme]="'github'"
+                            [readOnly]="false"
+                            style="display:block;height: 30vh; width:100%; overflow: auto;"></ace-editor>
+                <small id="bodyHelp" class="form-text text-muted">sample function body which returns any value.</small>
+            </div>
+        </div>
+        <div class="pull-left" [formGroup]="myGroup">
+            <re-captcha formControlName="captcha" required siteKey="6Lcp9BsUAAAAAGtFWI2fenzSTmPP1WNpcQxoPmVq"></re-captcha>
+        </div>
+        <div class="pull-right">
+            <div class="btn-group">
+                <button type="button" [disabled]="!form.valid && !myGroup.valid" (click)="addCollection(form)" class="btn btn-success btn-filter" data-target="publish">Publish</button>
+                <!--<button type="button" class="btn btn-warning btn-filter" (click)="reset()" data-target="reset">Reset</button>-->
+                <button type="button" class="btn btn-danger btn-filter" (click)="reset()" data-target="cancel">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
