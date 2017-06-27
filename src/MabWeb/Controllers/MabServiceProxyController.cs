@@ -28,6 +28,7 @@ namespace MabWeb.Controllers
         [HttpDelete]
         public async Task Execute(string url)
         {
+            this.logger.LogInformation($"MabServiceProxyController.Execute being called with url {url}, method {this.Request.Method}");
             var requestMessage = new HttpRequestMessage();
             var requestMethod = this.Request.Method;
             if (!HttpMethods.IsGet(requestMethod) && !HttpMethods.IsDelete(requestMethod))
@@ -43,8 +44,11 @@ namespace MabWeb.Controllers
                     requestMessage.Content?.Headers.TryAddWithoutValidation(header.Key, header.Value.ToArray());
                 }
             }
+            this.logger.LogInformation($"MabServiceProxyController.Execute: AppService base url: {this.appsettings.ApiUrl}");
             requestMessage.Headers.TryAddWithoutValidation("x-functions-key", this.appsettings.AppKey);
             var uriString = $"{this.appsettings.ApiUrl}{url}{this.Request.QueryString}";
+
+            this.logger.LogInformation($"MabServiceProxyController.Execute: AppService full url: {uriString}");
             requestMessage.RequestUri = new Uri(uriString);
             requestMessage.Method = new HttpMethod(this.Request.Method);
             requestMessage.Headers.Host = $"{requestMessage.RequestUri.Host}:{requestMessage.RequestUri.Port}";
