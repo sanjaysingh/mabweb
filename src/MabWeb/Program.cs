@@ -15,6 +15,8 @@ namespace MabWeb
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
+                .UseSetting("detailedErrors", "true")
+                .CaptureStartupErrors(true)
                 .UseStartup<Startup>()
                 .Build();
 
