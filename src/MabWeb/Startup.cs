@@ -56,8 +56,7 @@ namespace MabWeb
             }
             else
             {
-                app.UseDeveloperExceptionPage();
-                // app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseStaticFiles();
