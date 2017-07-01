@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.AzureAppServices;
 
 namespace MabWeb
 {
@@ -39,12 +38,7 @@ namespace MabWeb
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            loggerFactory.AddAzureWebAppDiagnostics(
-              new AzureAppServicesDiagnosticsSettings
-              {
-                  OutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:ss zzz} [{Level}] {RequestId}-{SourceContext}: {Message}{NewLine}{Exception}"
-              }
-            );
+            loggerFactory.AddFile(@"C:\logs\myapp.txt");
 
             if (env.IsDevelopment())
             {
