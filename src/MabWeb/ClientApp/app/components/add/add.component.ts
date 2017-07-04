@@ -69,25 +69,23 @@ export class AddComponent implements OnInit {
             this.isFetching = true;
             this.mockApiService.createApi(value)
                 .subscribe((response) => {
-                    const customResponse: any = response;
-                    const jsonObject: any = JSON.parse(customResponse._body);
-                    
-                    if (200 <= jsonObject.statusCode && jsonObject.statusCode <= 300) {
+                    if (200 <= response.status && response.status <= 300) {
                         this.toaster.pop('success', 'MAB API Service', "New API added successfully");
                         this.router.navigate(['/collections', value.name]);
                     }
                     else {
                         let errorMessage: string = "";
-                        if (jsonObject.statusCode == 409) {
+                        if (response.status == 409) {
                             errorMessage = "Collection with name " + name + " already exists";
                         }
-                        this.toaster.pop('error', 'API Service Error', "Status code:" + jsonObject.statusCode + " error: " + jsonObject.reasonPhrase + "\n" + errorMessage);
+                        this.toaster.pop('error', 'API Service Error', "Status code:" + response.status + " error: " + response.statusText + "\n" + errorMessage);
                         this.isFetching = false;
                     }
 
-                }, error => {
+                }, error  => {
                     this.isFetching = false;
                     console.log(error);
+                    this.toaster.pop('error', 'API Service Error', "Status code:" + error.status + " error: " + error.statusText);
                 });
         }
     }

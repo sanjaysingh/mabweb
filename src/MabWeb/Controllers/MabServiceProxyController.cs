@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Linq;
 using MabWeb.Utilities;
+using System.Net.Http.Headers;
 
 namespace MabWeb.Controllers
 {
@@ -44,10 +45,11 @@ namespace MabWeb.Controllers
                 }
             }
             requestMessage.Headers.TryAddWithoutValidation("x-functions-key", this.appsettings.AppKey);
-            var uriString = $"{this.appsettings.ApiUrl}{url}{this.Request.QueryString}";
+            var uriString = $"{this.appsettings.ApiUrl}/{url}{this.Request.QueryString}";
             requestMessage.RequestUri = new Uri(uriString);
             requestMessage.Method = new HttpMethod(this.Request.Method);
             requestMessage.Headers.Host = $"{requestMessage.RequestUri.Host}:{requestMessage.RequestUri.Port}";
+            requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpClient client = new HttpClient(new HttpClientHandler());
             using (var responseMessage = await client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, this.HttpContext.RequestAborted))
             {

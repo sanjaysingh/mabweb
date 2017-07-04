@@ -20,7 +20,7 @@ export class MockApiService {
   }
 
   createApi(mockapi: MockApi) {
-      return this.http.post(`/mabservice/intapi/collection/${mockapi.name}`, mockapi.api);
+      return this.http.post(`/mabservice/intapi/collection/${mockapi.name}/mockapi`, mockapi.api);
   }
 
   getCollectionReference(name:string) {
@@ -30,7 +30,7 @@ export class MockApiService {
   createCollection(name: string) {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
+      //headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
       let options = new RequestOptions({ headers: headers });
       let body = JSON.stringify({ "collectionName": "" + name + "" });
       return this.http.post(`/mabservice/intapi/collection/`, body, options);

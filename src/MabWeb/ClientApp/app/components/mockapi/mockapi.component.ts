@@ -28,22 +28,21 @@ constructor(public fb: FormBuilder, public store: Store<IAppState>, private rout
           this.isFetching = true;
           this.mockApiService.getCollectionReference(searchForm.value.text)
               .subscribe((response) => {
-                  const customResponse: any = response;
-                  const jsonObject: any = JSON.parse(customResponse._body);
                   this.isFetching = false;
-                  if (200 <= jsonObject.statusCode && jsonObject.statusCode <= 300) {
+                  if (200 <= response.status && response.status <= 300) {
                       this.router.navigate(['collections', searchForm.value.text]);
                   }
-                  else if (jsonObject.statusCode == 404) {
-                      this.toaster.pop('error', 'API Service Error', "Collection with name " + searchForm.value.text + " does not exists");
-                  }
                   else {
-                      this.toaster.pop('error', 'API Service Error', "Http Response status :" + jsonObject.statusCode + "," + jsonObject.reasonPhrase);
+                      this.toaster.pop('error', 'API Service Error', "Http Response status :" + response.status + "," + response.statusText);
                   }
-
               }, error => {
+                   if (error.status == 404) {
+                      this.toaster.pop('error', 'API Service Error', "Collection with name " + searchForm.value.text + " does not exists,\n please create a new collection");
+                   }
+                   else {
+                       this.toaster.pop('error', 'API Service Error', "Status code:" + error.status + " error: " + error.statusText);
+                   }
                   this.isFetching = false;
-                  console.log(error);
               });
       }
    }
@@ -57,19 +56,15 @@ constructor(public fb: FormBuilder, public store: Store<IAppState>, private rout
            this.isFetching = true;
            this.mockApiService.getCollectionReference(name)
                .subscribe((response) => {
-                   const customResponse: any = response;
-                   const jsonObject: any = JSON.parse(customResponse._body);
                    this.isFetching = false;
-                   if ((200 <= jsonObject.statusCode && jsonObject.statusCode <= 300) || jsonObject.statusCode == 404) {
+                   this.toaster.pop('error', 'MAB API Service', "Http Response status :" + response.status + "," + response.statusText);
+               }, error => {
+                   if (error.status == 404) {
                        this.createCollection(name);
                    }
                    else {
-                       this.toaster.pop('error', 'API Service Error', "Http Response status :" + jsonObject.statusCode + "," + jsonObject.reasonPhrase);
+                       this.toaster.pop('error', 'API Service Error', "Status code:" + error.status + " error: " + error.statusText);
                    }
-
-               }, error => {
-                   this.isFetching = false;
-                   console.log(error);
                });
        }
    }
@@ -77,24 +72,24 @@ constructor(public fb: FormBuilder, public store: Store<IAppState>, private rout
    createCollection(name: string) {
        this.mockApiService.createCollection(name)
            .subscribe((response) => {
-               const customResponse: any = response;
-               const jsonObject: any = JSON.parse(customResponse._body);
                this.isFetching = false;
-               if (200 <= jsonObject.statusCode && jsonObject.statusCode <= 300) {
+               if (200 <= response.status && response.status <= 300) {
                    this.toaster.pop('success', 'MAB API Service', "New collection created successfully");
                }
                else {
                    let errorMessage: string = "";
-                   if (jsonObject.statusCode == 409)
+                   if (response.status == 409)
                    {
                        errorMessage = "Collection with name " + name + " already exists";
                    }
-                   this.toaster.pop('error', 'API Service Error', "Status code:" + jsonObject.statusCode + " error: " + jsonObject.reasonPhrase + "\n" + errorMessage);
+                   this.toaster.pop('error', 'MAB API Service', "Status code:" + response.status + " error: " + response.statusText + "\n" + errorMessage);
                }
 
            }, error => {
                this.isFetching = false;
-               console.log(error);
+               
+
+               this.toaster.pop('error', 'API Service Error', "Status code:" + error.status + " error: " + error.statusText);
            });
 
    }
