@@ -8,11 +8,6 @@ const routes: Route[] = [
     path: '',
     component: MockApiComponent
   },
-  //{
-  //  path: 'edit',
-  //  component: EditComponent,
-  //  outlet: 'modal'
-  //}
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forChild(routes);

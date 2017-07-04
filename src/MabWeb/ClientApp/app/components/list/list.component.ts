@@ -43,6 +43,6 @@ export class ListComponent implements OnInit{
 
     add(): void {
         let name = this.activatedRoute.snapshot.params['name'] as string;
-        this.router.navigate(['./add'], { relativeTo: this.activatedRoute });
+        this.router.navigate(['./newapi'], { relativeTo: this.activatedRoute });
     }
 }

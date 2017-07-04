@@ -6,11 +6,8 @@ import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 import { MockApiComponent } from './mockapi.component';
 import { routing } from './mockapi.router';
-//import { EditComponent } from './edit/edit.component';
 import { SharedModule } from '../shared/shared.module';
-//import { AddComponent } from './add/add.component';
 import { MockApiService } from './mockapi.service';
-//import { ListComponent } from './list/list.component';
 
 @NgModule({
   imports: [
@@ -24,9 +21,6 @@ import { MockApiService } from './mockapi.service';
   ],
   declarations: [
     MockApiComponent,
-     //EditComponent,
-     // AddComponent,
-    //ListComponent
   ],
   bootstrap: [
     MockApiComponent

@@ -8,6 +8,10 @@ ul.topnav {
 
 ul.topnav li {float: left;}
 
+ul.topnav li a span{
+    margin-right: 10px;
+}
+
 ul.topnav li a {
   display: inline-block;
   color: #f2f2f2;
@@ -18,8 +22,12 @@ ul.topnav li a {
   font-size: 17px;
 }
 
-ul.topnav li a:hover {background-color: #555;}
-ul.topnav li a.active {background-color: #555;}
+    ul.topnav li a:hover {
+        background-color: #008171;
+    }
+    ul.topnav li a.active {
+        background-color: #008171;
+    }
 ul.topnav li.icon {display: none;}
 
 @media screen and (max-width:680px) {

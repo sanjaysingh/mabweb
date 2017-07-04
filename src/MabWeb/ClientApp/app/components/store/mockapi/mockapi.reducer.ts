@@ -28,7 +28,6 @@ export const mockApiReducer: ActionReducer<IMockApi[]> = (state:Array<IMockApi> 
             {
                console.error("Http Response status :" + jsonObject.statusCode + "," + jsonObject.reasonPhrase);
             }
-        //return [...state, action.payload];
             return Object.assign({}, state, {
                 error: jsonObject.reasonPhrase
             });

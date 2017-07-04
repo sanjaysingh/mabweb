@@ -10,9 +10,7 @@ import { MockApiService } from '../mockapi/mockapi.service';
 import { ToasterService } from 'angular2-toaster';
 
 import { MAB_GET, MAB_GET_FAIL, MAB_GET_SUCCESS, MAB_ADD, MAB_ADD_FAIL,MAB_ADD_SUCCESS } from '../store/mockapi/mockapi.actions';
-export interface FormModel {
-    captcha?: string;
-}
+
 @Component({
     selector: 'app-add',
     templateUrl: './add.component.html',
@@ -49,8 +47,7 @@ export class AddComponent implements OnInit {
         });
     }
 
-    httpVerbs = ['GET', 'POST'];
-    public formModel: FormModel = {};
+    httpVerbs = ['GET', 'POST', 'PUT', 'DELETE'];
 
     ngOnInit():void {
     }
@@ -60,32 +57,33 @@ export class AddComponent implements OnInit {
     }
 
     backToCollections(form: MockApi): void {
-        this.router.navigate(['collections', form.name]);
+        this.router.navigate(['collection', this.form.get('name').value]);
     }
 
-    addCollection({ value, valid }: { value: MockApi, valid: boolean }) {
-        if (this.form.valid && this.myGroup.valid) {
+    addMockApi({ value, valid }: { value: MockApi, valid: boolean }) {
+        if (this.form.valid ) {
             value.name = this.form.get('name').value;
             this.isFetching = true;
             this.mockApiService.createApi(value)
+            
                 .subscribe((response) => {
-                    if (200 <= response.status && response.status <= 300) {
-                        this.toaster.pop('success', 'MAB API Service', "New API added successfully");
-                        this.router.navigate(['/collections', value.name]);
+                    if (response.status == 200) {
+                        this.toaster.pop('success', 'Mock Api Builder', "New API added successfully");
+                        this.router.navigate(['/collection', value.name]);
                     }
                     else {
-                        let errorMessage: string = "";
-                        if (response.status == 409) {
-                            errorMessage = "Collection with name " + name + " already exists";
-                        }
-                        this.toaster.pop('error', 'API Service Error', "Status code:" + response.status + " error: " + response.statusText + "\n" + errorMessage);
+                        this.toaster.pop('error', 'Mock Api Builder', `Status code: ${ response.status} error: ${response.statusText}`);
                         this.isFetching = false;
                     }
 
                 }, error  => {
-                    this.isFetching = false;
                     console.log(error);
-                    this.toaster.pop('error', 'API Service Error', "Status code:" + error.status + " error: " + error.statusText);
+                    let errorMessage: string = "";
+                    if (error.status == 409) {
+                        errorMessage = `Api with name '${value.api.name}' already exists`;
+                    }
+                    this.toaster.pop('error', 'Mock Api Builder', `Status code: ${error.status}. ${errorMessage}`);
+                    this.isFetching = false;
                 });
         }
     }

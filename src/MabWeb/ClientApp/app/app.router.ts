@@ -7,13 +7,12 @@ import { AddComponent } from './components/add/add.component';
 
 const routes: Route[] = [
     { path: '', pathMatch: 'full', redirectTo: 'mock' },
-    { path: 'collections/:name/add', component: AddComponent },
-    //{ path: 'home', component: HomeComponent },
+    { path: 'collection/:name/newapi', component: AddComponent },
     { path: '', loadChildren: () => MockApiModule },
     {
-        path: 'collections/:name', component: ListComponent
+        path: 'collection/:name', component: ListComponent
     },
-    { path: 'add', component: AddComponent },
+    { path: 'newcollection', component: AddComponent },
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(

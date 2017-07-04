@@ -1,7 +1,7 @@
 ﻿<app-ui-loader [visible]="isFetching"></app-ui-loader>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2>MAB collections for {{(mockApi$ | async)?.Name}}</h2>
+        <h2>Mock Apis in collection {{(mockApi$ | async)?.Name}}</h2>
         <div class="panel-body">
             <div class="table-container">
                 <table class="table table-responsive">
@@ -13,7 +13,7 @@
                             <td>
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title">Function : {{mockapi.Name}}</h3>
+                                        <h3 class="panel-title">Api Name: {{mockapi.Name}}</h3>
                                     </div>
                                     <div class="panel-body">
                                         <div class="media">

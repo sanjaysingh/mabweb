@@ -8,14 +8,14 @@
         </div>
         <div formGroupName="api">
             <div class="form-group">
-                <label for="name">Function Name</label>
+                <label for="name">Api Name</label>
                 <input type="text" class="form-control" formControlName="name" aria-describedby="nameHelp" placeholder="enter Name" required>
-                <small id="nameHelp" class="form-text text-muted">function name which you call.</small>
+                <small id="nameHelp" class="form-text text-muted">Api name which you call.</small>
             </div>
             <div class="form-group">
                 <label for="routeTemplate">Route Template</label>
                 <input type="text" class="form-control" formControlName="routeTemplate" aria-describedby="rtHelp" placeholder="enter Route Template" required>
-                <small id="rtHelp" class="form-text text-muted">route used to call your function.</small>
+                <small id="rtHelp" class="form-text text-muted">route used to call your Api.</small>
             </div>
             <div class="form-group">
                 <label for="httpVerb">HTTP Verb</label>
@@ -24,23 +24,19 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="txtBody">Function Body</label>
+                <label for="txtBody">Api function body</label>
                 <ace-editor required formControlName="body" [text]="body"
                             [mode]="'javascript'"
                             [theme]="'github'"
                             [readOnly]="false"
                             style="display:block;height: 30vh; width:100%; overflow: auto;"></ace-editor>
-                <small id="bodyHelp" class="form-text text-muted">sample function body which returns any value.</small>
+                <small id="bodyHelp" class="form-text text-muted">sample Api function body which returns some value.</small>
             </div>
-        </div>
-        <div class="pull-left" [formGroup]="myGroup">
-            <re-captcha formControlName="captcha" required siteKey="6Lcp9BsUAAAAAGtFWI2fenzSTmPP1WNpcQxoPmVq"></re-captcha>
         </div>
         <div class="pull-right">
             <div class="btn-group">
-                <button type="button" [disabled]="!form.valid && !myGroup.valid" (click)="addCollection(form)" class="btn btn-success btn-filter" data-target="publish">Publish</button>
-                <!--<button type="button" class="btn btn-warning btn-filter" (click)="reset()" data-target="reset">Reset</button>-->
-                <button type="button" class="btn btn-danger btn-filter" (click)="reset()" data-target="cancel">Cancel</button>
+                <button type="button" [disabled]="!form.valid" (click)="addMockApi(form)" class="btn btn-success btn-filter" data-target="publish">Publish</button>
+                <button type="button" class="btn btn-danger btn-filter" (click)="backToCollections(form)" data-target="cancel">Cancel</button>
             </div>
         </div>
     </form>
