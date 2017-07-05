@@ -14,8 +14,8 @@ namespace MabWeb
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseSetting("detailedErrors", "true")
-                .UseAzureAppServices()
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
 

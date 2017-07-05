@@ -36,7 +36,7 @@ namespace MabWeb
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            bool showDetailedError = Configuration.GetValue<bool>("AppSettings:DetailedError");
+            bool showDetailedError = true; // Configuration.GetValue<bool>("AppSettings:DetailedError");
 
             if (env.IsDevelopment())
             {
