@@ -10,5 +10,7 @@ namespace MabWeb.Utilities
         public string AppKey { get; set; }
 
         public string ApiUrl { get; set; }
+
+        public bool DetailedError { get; set; }
     }
 }

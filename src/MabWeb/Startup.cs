@@ -36,10 +36,7 @@ namespace MabWeb
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            loggerFactory.AddAzureWebAppDiagnostics(new AzureAppServicesDiagnosticsSettings
-              {
-                  OutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:ss zzz} [{Level}] {RequestId}-{SourceContext}: {Message}{NewLine}{Exception}"
-              });
+            bool showDetailedError = Configuration.GetValue<bool>("AppSettings:DetailedError");
 
             if (env.IsDevelopment())
             {
@@ -51,8 +48,14 @@ namespace MabWeb
             }
             else
             {
-                app.UseDeveloperExceptionPage();
-                //app.UseExceptionHandler("/Home/Error");
+                if (showDetailedError)
+                {
+                    app.UseDeveloperExceptionPage();
+                }
+                else
+                {
+                    app.UseExceptionHandler("/Home/Error");
+                }
             }
 
             app.UseStaticFiles();
