@@ -20,7 +20,7 @@
                                             <div class="media-body">
                                                 <span class="media-meta pull-right"></span>
                                                 <h4 class="title">
-                                                    {{mockapi.Verb}} <a>{{mockApiBaseRoute}}/{{mockapi.RouteTemplate}}</a>
+                                                    {{mockapi.Verb}} <a>{{mockApiBaseRoute}}/{{(mockApi$ | async)?.Name}}/{{mockapi.RouteTemplate}}</a>
                                                 </h4>
                                                 <ace-editor [text]="mockapi.Body"
                                                             [options]="options"

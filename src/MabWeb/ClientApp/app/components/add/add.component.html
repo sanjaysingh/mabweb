@@ -1,11 +1,6 @@
 ﻿<div class="panel-body">
     <h2>{{errorMessage}}</h2><app-ui-loader [visible]="isFetching"></app-ui-loader>
     <form [formGroup]="form">
-        <div class="form-group">
-            <label for="name">Collection Name</label>
-            <input type="text" class="form-control" formControlName="name" aria-describedby="nameHelp" placeholder="enter unique collection name" required >
-            <small id="nameHelp" class="form-text text-muted">it should be unique.</small>
-        </div>
         <div formGroupName="api">
             <div class="form-group">
                 <label for="name">Api Name</label>
@@ -15,7 +10,7 @@
             <div class="form-group">
                 <label for="routeTemplate">Route Template</label>
                 <input #routeTemplate (keyup)="0" type="text" class="form-control" formControlName="routeTemplate" placeholder="enter Route Template" required>
-                <a>{{mockApiBaseRoute}}/{{routeTemplate.value}}</a>
+                <a>{{mockApiBaseRoute}}/{{collectionName}}/{{routeTemplate.value}}</a>
             </div>
             <div class="form-group">
                 <label for="httpVerb">HTTP Verb</label>

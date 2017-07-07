@@ -5,5 +5,5 @@
 
 export const environment = {
     production: false,
-    mabServiceBaseUrl: 'https://mabservice.sanjaysingh.net'
+    mabServiceBaseUrl: 'https://mabservice.sanjaysingh.net/api'
 };
