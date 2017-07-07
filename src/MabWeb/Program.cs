@@ -13,7 +13,6 @@ namespace MabWeb
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseSetting("detailedErrors", "true")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()

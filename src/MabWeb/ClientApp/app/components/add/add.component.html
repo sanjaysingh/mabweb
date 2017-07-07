@@ -1,4 +1,4 @@
-﻿<div>
+﻿<div class="panel-body">
     <h2>{{errorMessage}}</h2><app-ui-loader [visible]="isFetching"></app-ui-loader>
     <form [formGroup]="form">
         <div class="form-group">
@@ -14,8 +14,8 @@
             </div>
             <div class="form-group">
                 <label for="routeTemplate">Route Template</label>
-                <input type="text" class="form-control" formControlName="routeTemplate" aria-describedby="rtHelp" placeholder="enter Route Template" required>
-                <small id="rtHelp" class="form-text text-muted">route used to call your Api.</small>
+                <input #routeTemplate (keyup)="0" type="text" class="form-control" formControlName="routeTemplate" placeholder="enter Route Template" required>
+                <a>{{mockApiBaseRoute}}/{{routeTemplate.value}}</a>
             </div>
             <div class="form-group">
                 <label for="httpVerb">HTTP Verb</label>
@@ -34,8 +34,8 @@
             </div>
         </div>
         <div class="pull-right">
-            <div class="btn-group">
-                <button type="button" [disabled]="!form.valid" (click)="addMockApi(form)" class="btn btn-success btn-filter" data-target="publish">Publish</button>
+            <div class="btn-toolbar">
+                <button type="button" [disabled]="!form.valid" (click)="addMockApi(form)" class="btn btn-success btn-filter" data-target="publish">Save</button>
                 <button type="button" class="btn btn-danger btn-filter" (click)="backToCollections(form)" data-target="cancel">Cancel</button>
             </div>
         </div>

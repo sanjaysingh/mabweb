@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { IMockApi } from '../store/mockapi/mockapi.reducer';
 import { MAB_GET, MAB_GET_FAIL, MAB_GET_SUCCESS } from '../store/mockapi/mockapi.actions';
 import { ToasterService } from 'angular2-toaster';
+import { environment } from '../../environments/environment';
 
 @Component({
     selector: 'app-list',
@@ -19,6 +20,7 @@ export class ListComponent implements OnInit{
     date: Date = new Date();
     isFetching: boolean = true;
     options: any = { maxLines: 1000, printMargin: false};
+    mockApiBaseRoute = environment.mabServiceBaseUrl;
 
     constructor(public store: Store<IAppState>, private activatedRoute: ActivatedRoute, private router: Router,private toaster: ToasterService) {
         this.mockApi$ = this.store.select('mockApi');

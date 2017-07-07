@@ -8,6 +8,7 @@ import { IMockApi } from '../store/mockapi/mockapi.reducer';
 import { MockApi } from '../mockapi/mock';
 import { MockApiService } from '../mockapi/mockapi.service';
 import { ToasterService } from 'angular2-toaster';
+import { environment } from '../../environments/environment';
 
 import { MAB_GET, MAB_GET_FAIL, MAB_GET_SUCCESS, MAB_ADD, MAB_ADD_FAIL,MAB_ADD_SUCCESS } from '../store/mockapi/mockapi.actions';
 
@@ -48,6 +49,8 @@ export class AddComponent implements OnInit {
     }
 
     httpVerbs = ['GET', 'POST', 'PUT', 'DELETE'];
+
+    mockApiBaseRoute = environment.mabServiceBaseUrl;
 
     ngOnInit():void {
     }
